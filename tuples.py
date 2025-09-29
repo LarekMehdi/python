@@ -28,8 +28,13 @@ def compare_records(azara_record, rui_record):
     :param rui_record: tuple - a (location, tuple(coordinate_1, coordinate_2), quadrant) trio.
     :return: bool - do the coordinates match?
     """
+    
+    azara_coord = azara_record[1]
+    rui_coord_tuple = rui_record[1]
+    rui_coord = f"{rui_coord_tuple[0]}{rui_coord_tuple[1]}"
+    return azara_coord == rui_coord
 
-    pass
+    
 
 
 def create_record(azara_record, rui_record):
@@ -40,7 +45,10 @@ def create_record(azara_record, rui_record):
     :return: tuple or str - the combined record (if compatible), or the string "not a match" (if incompatible).
     """
 
-    pass
+    if compare_records(azara_record, rui_record):
+        return azara_record + rui_record
+
+    return 'not a match'
 
 
 def clean_up(combined_record_group):
@@ -53,5 +61,12 @@ def clean_up(combined_record_group):
 
     (see HINTS.md for an example).
     """
-
-    pass
+    result_lines = []
+    for record in combined_record_group:
+        treasure, _, location, coordinate, quadrant = record
+        cleaned_record = (treasure, location, coordinate, quadrant)
+        result_lines.append(str(cleaned_record))
+    
+    return "\n".join(result_lines) + "\n"
+        
+    
