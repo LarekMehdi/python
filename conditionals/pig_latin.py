@@ -21,6 +21,7 @@ def translate(text):
     if start_with_vowel(text) or start_rule_1(text):
         return text + 'ay'
     else:
+        # TODO: cumuler les conditions
         if has_qu(text):
             parts = split_after_qu(text)
             text = parts[1] + parts[0]
